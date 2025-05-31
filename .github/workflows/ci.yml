@@ -33,6 +33,6 @@ jobs:
           if [ -f "requirements.txt" ]; then pip install -r requirements.txt; fi
 
       # 4) Exécuter le script avec --help (smoke-test basique)
-      - name: ▶️ Run log_analyzer.py --help
+      - name: ▶️ Run logAnalyzer.py --help
         run: |
-          python log_analyzer.py --help
+          python3 log_analyzer.py --help
