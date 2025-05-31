@@ -35,4 +35,4 @@ jobs:
       # 4) Exécuter le script avec --help (smoke-test basique)
       - name: ▶️ Run logAnalyzer.py --help
         run: |
-          python3 log_analyzer.py --help
+          python3 logAnalyzer.py --help
