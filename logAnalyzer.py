@@ -42,13 +42,15 @@ def analyze_log_file(input_path):
     counts = {
         "INFO": 0,
         "WARNING": 0,
-        "ERROR": 0
+        "ERROR": 0,
+        "DEBUG": 0  # Added DEBUG level for completeness
     }
 
     # Compile regex patterns once (case‐insensitive)
     info_pattern = re.compile(r"\bINFO\b", re.IGNORECASE)
     warning_pattern = re.compile(r"\bWARNING\b", re.IGNORECASE)
     error_pattern = re.compile(r"\bERROR\b", re.IGNORECASE)
+    debug_pattern = re.compile(r"\bDEBUG\b", re.IGNORECASE)
 
     try:
         with open(input_path, "r", encoding="utf‐8", errors="ignore") as f:
@@ -60,6 +62,8 @@ def analyze_log_file(input_path):
                     counts["WARNING"] += 1
                 elif info_pattern.search(line):
                     counts["INFO"] += 1
+                elif info_pattern.search(line):
+                    counts["DEBUG"] += 1
                 # If your logs embed multiple levels per line (e.g. "INFO ... ERROR ..."), 
                 # you could remove elif and use three independent if‐blocks instead.
     except FileNotFoundError:
@@ -87,6 +91,8 @@ def write_summary(counts, output_path):
             out_f.write(f"INFO:    {counts['INFO']}\n")
             out_f.write(f"WARNING: {counts['WARNING']}\n")
             out_f.write(f"ERROR:   {counts['ERROR']}\n")
+            out_f.write(f"DEBUG:   {counts['DEBUG']}\n")
+
     except Exception as e:
         print(f"Error while writing to '{output_path}': {e}", file=sys.stderr)
         sys.exit(1)
